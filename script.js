@@ -1,4 +1,30 @@
-//console.log(playGame());
+const startBtn = document.querySelector('#start-btn');
+const startBtnBg = document.querySelector('.play');
+let isGameOn = false;
+startBtn.addEventListener('click', ()=>{
+    startBtnBg.remove();
+    startBtn.textContent = 'Play Again'
+    isGameOn = true;
+});
+
+const score = document.querySelector('#points');
+
+const options = document.querySelector('.options');
+options.addEventListener('click', (event) => {
+    let target = event.target;
+
+    switch(target.id) {
+        case 'rock-btn':
+            playRound('rock',getComputerChoice());
+            break;
+        case 'paper-btn':
+            playRound('paper',getComputerChoice());
+            break;
+        case 'scissors-btn':
+            playRound('scissors',getComputerChoice());
+            break;
+    }
+});
 
 function getComputerChoice () {
     let randNum = Math.floor(Math.random()*3);
@@ -10,17 +36,19 @@ function getComputerChoice () {
 }
 
 function playRound (playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
     console.log("computer: "+computerSelection+"\nplayer: "+playerSelection)
     if (playerSelection === computerSelection) {
+        console.log('tie');
         return("tie");
     } else if (
         (playerSelection === "rock" && computerSelection === "scissors") || 
         (playerSelection === "paper" && computerSelection === "rock") || 
         (playerSelection === "scissors" && computerSelection === "paper")
     ) {
+        console.log('win');
         return(true)
     } else {
+        console.log('loss');
         return(false)
     };
 }
@@ -31,9 +59,10 @@ function playGame () {
     let result;
     let playerChoice;
     let computerChoice;
-    console.log("computer: "+computerPoints+" - player: "+playerPoints);
-    while (computerPoints < 5 && playerPoints < 5) {
-        playerChoice = prompt("Choose: Rock, Paper or Scissors","");
+    score.textContent = playerPoints+" - "+computerPoints;
+    console.log(playerPoints+" - "+computerPoints)
+    if (computerPoints < 5 && playerPoints < 5) {
+        playerChoice = getPlayerChoice();
         computerChoice = getComputerChoice();
         result = playRound(playerChoice, computerChoice)
         if (result === "tie") {
@@ -47,7 +76,8 @@ function playGame () {
         } else {
             console.log(`How did you even get this result??`)
         };
-        console.log("computer: "+computerPoints+" - player: "+playerPoints);
+        score.textContent = playerPoints+" - "+computerPoints;
+        console.log(playerPoints+" - "+computerPoints)
         computerPoints = computerPoints;
         playerPoints = playerPoints;
     };
@@ -55,5 +85,5 @@ function playGame () {
         return(`Congratulations! You win!\nFinal score: ${computerPoints}-${playerPoints}`)
     } else {
         return(`Bad luck! You'll win next time\nFinal score: ${computerPoints}-${playerPoints}`)
-    }
+    };
 }
