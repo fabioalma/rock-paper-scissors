@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    
+    padding: 0;
+    margin: 0;
+}
+
+.main-page {
+    display: flex;
+}
+
+.main-page .filler {
+    min-width: 15vw;
+}
+
+.game {
+    width: 70vw;
+    margin-bottom: 32px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    gap: 32px;
+}
+
+.game header h1 {  
+    padding: 40px 0px;
+    margin: 0;
+}
+
+.score {
+    margin-bottom: 32px;
+}
+
+.score section {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+.score section p {
+    font-size: 24px;
+    min-width: 100px;
+}
+
+.score #points {
+    font-family: monospace;
+    font-size: 72px;
+    margin: 0;
+}
+
+.options {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.options .opt-btn {
+    padding: 20px;
+    font-size: 64px;
+    font-weight: bold;
+    width: 118px;
+}
+
+.play #start-btn {
+    font-size: 18px;
+
+}
