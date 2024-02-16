@@ -41,6 +41,14 @@ options.addEventListener('click', (event) => {
                     playerChoice = 'Scissors';
                     result = playRound('scissors',computerChoice);
                     break;
+                case 'lizard-btn':
+                    playerChoice = 'Lizard';
+                    result = playRound('lizard',computerChoice);
+                    break;
+                case 'spock-btn':
+                    playerChoice = 'Spock';
+                    result = playRound('spock',computerChoice);
+                    break;
             };
 
             if (result === "tie") {
@@ -75,28 +83,33 @@ options.addEventListener('click', (event) => {
 });
 
 function getComputerChoice () {
-    let randNum = Math.floor(Math.random()*3);
+    let randNum = Math.floor(Math.random()*5);
     return (
         (randNum == 0) ? "rock" : 
         (randNum == 1) ? "paper" :
-        "scissors"
+        (randNum == 2) ? "scissors" :
+        (randNum == 3) ? "lizard" :
+        "spock"
     );
 }
 
 function playRound (playerSelection, computerSelection) {
-    console.log("computer: "+computerSelection+"\nplayer: "+playerSelection)
     if (playerSelection === computerSelection) {
-        console.log('tie');
         return("tie");
     } else if (
         (playerSelection === "rock" && computerSelection === "scissors") || 
         (playerSelection === "paper" && computerSelection === "rock") || 
-        (playerSelection === "scissors" && computerSelection === "paper")
+        (playerSelection === "scissors" && computerSelection === "paper") ||
+        (playerSelection === "paper" && computerSelection === "spock") ||
+        (playerSelection === "spock" && computerSelection === "scissors") ||
+        (playerSelection === "scissors" && computerSelection === "lizard") ||
+        (playerSelection === "lizard" && computerSelection === "spock") ||
+        (playerSelection === "spock" && computerSelection === "rock") ||
+        (playerSelection === "rock" && computerSelection === "lizard") ||
+        (playerSelection === "lizard" && computerSelection === "paper")
     ) {
-        console.log('win');
         return(true)
     } else {
-        console.log('loss');
         return(false)
     };
 }
