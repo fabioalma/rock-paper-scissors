@@ -1,28 +1,76 @@
+let computerPoints;
+let playerPoints;
+let result;
+let playerChoice;
+let computerChoice;
+
 const startBtn = document.querySelector('#start-btn');
 const startBtnBg = document.querySelector('.play');
+const mainPage = document.querySelector('.main-page')
 let isGameOn = false;
 startBtn.addEventListener('click', ()=>{
     startBtnBg.remove();
-    startBtn.textContent = 'Play Again'
     isGameOn = true;
+    computerPoints = 0;
+    playerPoints = 0;
+    score.textContent = playerPoints+" - "+computerPoints;
+    textOut.textContent = '';
 });
 
 const score = document.querySelector('#points');
+const textOut = document.querySelector('.text-out');
+const playH1 = document.querySelector('#play-h1');
+const playP = document.querySelector('#play-p');
 
 const options = document.querySelector('.options');
 options.addEventListener('click', (event) => {
-    let target = event.target;
+    if (isGameOn) {
+        if (computerPoints < 5 && playerPoints < 5) {
+            computerChoice = getComputerChoice();
+            let target = event.target;
+            switch(target.id) {
+                case 'rock-btn':
+                    playerChoice = 'Rock';
+                    result = playRound('rock', computerChoice);
+                    break;
+                case 'paper-btn':
+                    playerChoice = 'Paper';
+                    result = playRound('paper',computerChoice);
+                    break;
+                case 'scissors-btn':
+                    playerChoice = 'Scissors';
+                    result = playRound('scissors',computerChoice);
+                    break;
+            };
 
-    switch(target.id) {
-        case 'rock-btn':
-            playRound('rock',getComputerChoice());
-            break;
-        case 'paper-btn':
-            playRound('paper',getComputerChoice());
-            break;
-        case 'scissors-btn':
-            playRound('scissors',getComputerChoice());
-            break;
+            if (result === "tie") {
+                textOut.textContent = `It's a tie! Both players selected ${playerChoice}`
+            } else if (result) {
+                playerPoints++;
+                textOut.textContent = `You win this round! ${playerChoice} beats ${computerChoice.at(0).toUpperCase().concat(computerChoice.slice(1))}`;
+            } else if (!result) {
+                computerPoints++;
+                textOut.textContent = `You loose this round! ${computerChoice.at(0).toUpperCase().concat(computerChoice.slice(1))} beats ${playerChoice}`;
+            } else {
+                textOut.textContent = `How did you even get this result??`;
+            };
+
+            score.textContent = playerPoints+" - "+computerPoints;
+
+            if (computerPoints < 5 && playerPoints == 5 ) {
+                playH1.textContent = 'Congratulations! You win!';
+                playP.textContent = `Final score: ${playerPoints}-${computerPoints}`;
+                startBtn.textContent = 'Play Again';
+                isGameOn = false;
+                mainPage.appendChild(startBtnBg);
+            } else if (computerPoints == 5 && playerPoints < 5 ) {
+                playH1.textContent = `Bad luck! You'll win next time...`;
+                playP.textContent = `Final score: ${playerPoints}-${computerPoints}`;
+                startBtn.textContent = 'Play Again';
+                isGameOn = false;
+                mainPage.appendChild(startBtnBg);
+            };
+        };
     }
 });
 
@@ -50,40 +98,5 @@ function playRound (playerSelection, computerSelection) {
     } else {
         console.log('loss');
         return(false)
-    };
-}
-
-function playGame () {
-    let computerPoints = 0;
-    let playerPoints = 0;
-    let result;
-    let playerChoice;
-    let computerChoice;
-    score.textContent = playerPoints+" - "+computerPoints;
-    console.log(playerPoints+" - "+computerPoints)
-    if (computerPoints < 5 && playerPoints < 5) {
-        playerChoice = getPlayerChoice();
-        computerChoice = getComputerChoice();
-        result = playRound(playerChoice, computerChoice)
-        if (result === "tie") {
-            console.log(`It's a tie! Both players selected ${playerChoice.at(0).toUpperCase().concat(playerChoice.slice(1))}`)
-        } else if (result) {
-            playerPoints++;
-            console.log(`You win this round! ${playerChoice.at(0).toUpperCase().concat(playerChoice.slice(1))} beats ${computerChoice.at(0).toUpperCase().concat(computerChoice.slice(1))}`);
-        } else if (!result) {
-            computerPoints++;
-            console.log(`You loose this round! ${computerChoice.at(0).toUpperCase().concat(computerChoice.slice(1))} beats ${playerChoice.at(0).toUpperCase().concat(playerChoice.slice(1))}`);
-        } else {
-            console.log(`How did you even get this result??`)
-        };
-        score.textContent = playerPoints+" - "+computerPoints;
-        console.log(playerPoints+" - "+computerPoints)
-        computerPoints = computerPoints;
-        playerPoints = playerPoints;
-    };
-    if (computerPoints < playerPoints) {
-        return(`Congratulations! You win!\nFinal score: ${computerPoints}-${playerPoints}`)
-    } else {
-        return(`Bad luck! You'll win next time\nFinal score: ${computerPoints}-${playerPoints}`)
     };
 }
