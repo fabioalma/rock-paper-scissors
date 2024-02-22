@@ -10,6 +10,8 @@ const mainPage = document.querySelector('.main-page');
 const body = document.querySelector('body');
 const fillerRight = document.querySelector('.filler.right');
 const fillerLeft = document.querySelector('.filler.left');
+const playerImgDiv = document.querySelector('#player-img');
+const computerImgDiv = document.querySelector('#cpu-img');
 
 let isGameOn = false;
 startBtn.addEventListener('click', ()=>{
@@ -19,6 +21,9 @@ startBtn.addEventListener('click', ()=>{
     playerPoints = 0;
     score.textContent = playerPoints+" - "+computerPoints;
     textOut.textContent = '';
+    playerImgDiv.style.backgroundImage = '';
+    computerImgDiv.style.backgroundImage = '';
+
 });
 
 const score = document.querySelector('#points');
@@ -187,12 +192,15 @@ options.addEventListener('click', (event) => {
                 textOut.textContent = 'You didn\'t press a button! Try again';
             } else if (result === "tie") {
                 textOut.textContent = `It's a tie! Both players selected ${playerChoice}`
+                imgResults(playerChoice, computerChoice);
             } else if (result) {
                 playerPoints++;
                 textOut.textContent = `You win this round! ${playerChoice} beats ${computerChoice.at(0).toUpperCase().concat(computerChoice.slice(1))}`;
+                imgResults(playerChoice, computerChoice);
             } else if (!result) {
                 computerPoints++;
                 textOut.textContent = `You loose this round! ${computerChoice.at(0).toUpperCase().concat(computerChoice.slice(1))} beats ${playerChoice}`;
+                imgResults(playerChoice, computerChoice);
             };
 
             result = ''
@@ -227,6 +235,13 @@ function getComputerChoice () {
         (randNum == 3) ? "lizard" :
         "spock"
     );
+}
+
+function imgResults (playerChoice, computerChoice) {
+    playerImgDiv.setAttribute('class', 'img-div');
+    playerImgDiv.style.backgroundImage = `url(img/${playerChoice.toLowerCase()}.png)`;
+    computerImgDiv.setAttribute('class', 'img-div');
+    computerImgDiv.style.backgroundImage = `url(img/${computerChoice.toLowerCase()}.png)`;
 }
 
 function playRound (playerSelection, computerSelection) {
