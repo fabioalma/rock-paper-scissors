@@ -62,7 +62,15 @@ body {
     padding: 20px;
     font-size: 64px;
     font-weight: bold;
-    width: 118px;
+    min-width: 126px;
+    height: 126px;
+}
+
+.opt-btn-hover {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
 }
 
 .play {
@@ -89,7 +97,7 @@ body {
     text-transform: uppercase;
 }
 
-.play .grey-txt {
+.grey-txt {
     color: grey;
 }
 
@@ -106,6 +114,10 @@ body {
     text-decoration: underline;
 }
 
+.how-to-link:hover {
+    font-size: 42px;
+}
+
 .how-to-link {
     text-transform: none;
     color: inherit;
@@ -114,7 +126,16 @@ body {
 .play #start-btn {
     font-size: 18px;
     padding: 16px 32px;
+    border-radius: 6px;
+    transform: scale(1);
+    transition: all 0.15s;
+}
 
+.play #start-btn:hover {
+    font-size: 20px;
+    font-weight: bold;
+    transform: scale(1.05);
+    transition: all 0.15s;
 }
 
 .play-p,
@@ -130,11 +151,11 @@ body {
 .play .instructions {
     position: absolute;
     top: 5vh;
-    left: 15vw;
+    left: 25vw;
     z-index: 999;
 
     height: 80vh;
-    width: 70vw;
+    width: 50vw;
     
     border: 3px solid black;
     border-radius: 16px;

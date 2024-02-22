@@ -64,7 +64,6 @@ howToBtn.addEventListener('click', () => {
     img.setAttribute('src', 'img/instructions.png');
     img.setAttribute('id','instructions-img');
     div.appendChild(img);
-    //closeBtn.textContent = 'Close';
     closeBtn.setAttribute('class', 'close-btn');
     div.setAttribute('class', 'instructions');
     fillerLeft.appendChild(div);
@@ -76,10 +75,82 @@ howToBtn.addEventListener('click', () => {
     });
 });
 
-
-
-
 const options = document.querySelector('.options');
+
+const rockBtn = document.querySelector('#rock-btn');
+const paperBtn = document.querySelector('#paper-btn');
+const scissorsBtn = document.querySelector('#scissors-btn');
+const lizardBtn = document.querySelector('#lizard-btn');
+const spockBtn = document.querySelector('#spock-btn');
+
+options.addEventListener('mouseover', (event) => {
+    let target = event.target;
+    switch(target.id) {
+        case 'rock-btn':
+            rockBtn.textContent = '';
+            rockBtn.style.backgroundImage = 'url(img/rock.png)';
+            rockBtn.classList.add('opt-btn-hover');
+            break;
+        case 'paper-btn':
+            paperBtn.textContent = '';
+            paperBtn.style.backgroundImage = 'url(img/paper.png)';
+            paperBtn.classList.add('opt-btn-hover');
+            break;
+        case 'scissors-btn':
+            scissorsBtn.textContent = '';
+            scissorsBtn.style.backgroundImage = 'url(img/scissors.png)';
+            scissorsBtn.classList.add('opt-btn-hover');
+            break;
+        case 'lizard-btn':
+            lizardBtn.textContent = '';
+            lizardBtn.style.backgroundImage = 'url(img/lizard.png)';
+            lizardBtn.classList.add('opt-btn-hover');
+            break;
+        case 'spock-btn':
+            spockBtn.textContent = '';
+            spockBtn.style.backgroundImage = 'url(img/spock.png)';
+            spockBtn.classList.add('opt-btn-hover');
+            break;
+        default:
+            break;
+    }
+});
+
+options.addEventListener('mouseout', (event) => {
+    let target = event.target;
+    switch(target.id) {
+        case 'rock-btn':
+            rockBtn.classList.remove('opt-btn-hover');
+            rockBtn.textContent = 'R';
+            rockBtn.style.backgroundImage = '';
+            break;
+        case 'paper-btn':
+            paperBtn.classList.remove('opt-btn-hover');
+            paperBtn.textContent = 'P';
+            paperBtn.style.backgroundImage = '';
+            break;
+        case 'scissors-btn':
+            scissorsBtn.classList.remove('opt-btn-hover');
+            scissorsBtn.textContent = 'S';
+            scissorsBtn.style.backgroundImage = '';
+            break;
+        case 'lizard-btn':
+            lizardBtn.classList.remove('opt-btn-hover');
+            lizardBtn.textContent = 'L';
+            lizardBtn.style.backgroundImage = '';
+            break;
+        case 'spock-btn':
+            spockBtn.classList.remove('opt-btn-hover');
+            spockBtn.textContent = 'Sp';
+            spockBtn.style.backgroundImage = '';
+            break;
+        default:
+            break;
+    }
+});
+
+// the actual game code
+
 options.addEventListener('click', (event) => {
     if (isGameOn) {
         if (computerPoints < 5 && playerPoints < 5) {
